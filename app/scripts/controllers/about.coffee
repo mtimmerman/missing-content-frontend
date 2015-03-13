@@ -7,7 +7,8 @@
  # # AboutCtrl
  # Controller of the missingContentFrontendApp
 ###
-angular.module('missingContentFrontendApp')
+angular
+  .module 'missingContentFrontendApp'
   .controller 'AboutCtrl', ($scope) ->
     $scope.awesomeThings = [
       'HTML5 Boilerplate'

@@ -1,0 +1,53 @@
+<header id="navbar-head" class="navbar">
+    <div class="container">
+        <a
+                class="navbar-brand"
+                ng-href="/"
+                >
+            <img src="images/logo.png" class="retina" alt="Missing Content"/>
+        </a>
+        <button class="navbar-toggle navbar-toggle-open" type="button">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-navigation-fade"></div>
+        <div class="navbar-navigation">
+            <button class="navbar-toggle navbar-toggle-close" type="button">
+                <img style="width: 71px; height: 44px" src="images/mobile_close.png" alt="">
+            </button>
+            <div class="navbar-navigation-navs">
+                <ul class="navbar-navigation-primary nav">
+                    <li>
+                        <a
+                                ng-href="/"
+                                ng-class="{'active': isPathActive('/')}"
+                                >
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                                ng-href="/about"
+                                ng-class="{'active': isPathActive('/')}"
+                                >
+                            About
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-navigation-secondary nav">
+                    <li>
+                        <oauth
+                                site="{{oauth_site}}"
+                                client-id="{{oauth_client_id}}"
+                                redirect-uri="{{oauth_redirect}}"
+                                authorize-path="/oauth/authorize/"
+                                template="views/partials/login-button.html"
+                                scope="user_basic">
+                        </oauth>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
