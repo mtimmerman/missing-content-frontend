@@ -8,9 +8,18 @@
  # Controller of the missingContentFrontendApp
 ###
 angular.module('missingContentFrontendApp')
-  .controller 'MainCtrl', ($scope) ->
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate'
-      'AngularJS'
-      'Karma'
-    ]
+  .controller 'MainCtrl', ($scope, localStorageService) ->
+    todosInStore = localStorageService.get 'todos'
+
+    $scope.todos = todosInStore || []
+
+    $scope.$watch 'todos', ->
+      localStorageService.set 'todos', $scope.todos
+    , true
+
+    $scope.addTodo = () ->
+      $scope.todos.push $scope.todo
+      $scope.todo = ''
+
+    $scope.removeTodo = (index) ->
+      $scope.todos.splice(index, 1)
