@@ -17,11 +17,14 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.sortable'
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'oauth'
   ])
   .config(['localStorageServiceProvider', (localStorageServiceProvider) ->
     localStorageServiceProvider.setPrefix 'ls'
   ])
+  .config ($locationProvider) ->
+    $locationProvider.html5Mode(true).hashPrefix('!')
   .config ($routeProvider) ->
     $routeProvider
       .when '/',
