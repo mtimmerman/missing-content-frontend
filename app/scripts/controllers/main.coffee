@@ -17,9 +17,24 @@ angular.module('missingContentFrontendApp')
       localStorageService.set 'todos', $scope.todos
     , true
 
+    accessToken = localStorageService.get 'accessToken'
+
+    $scope.accessToken = accessToken
+
+    $scope.$watch 'accessToken', ->
+      localStorageService.set 'accessToken', $scope.accessToken
+    , true
+
     $scope.addTodo = () ->
       $scope.todos.push $scope.todo
       $scope.todo = ''
 
     $scope.removeTodo = (index) ->
       $scope.todos.splice(index, 1)
+
+    $scope.$on 'oauth:login', (event, token) ->
+      console.log 'yo'
+      $scope.accessToken = token.access_token
+
+    $scope.$on 'oauth:logout', (event) ->
+      $scope.accessToken = null;
