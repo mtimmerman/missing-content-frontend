@@ -2,7 +2,7 @@
 
 angular
   .module 'missingContentFrontendApp'
-  .directive 'navigationHeader', ['$location', '$achorScroll',
+  .directive 'navigationHeader', ['$location', '$anchorScroll',
   ($location, $anchorScroll) ->
     templateUrl: 'views/directives/navigation-header.html'
     restrict: 'E'
