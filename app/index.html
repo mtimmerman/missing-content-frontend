@@ -1,20 +1,37 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="missingContentFrontendApp">
 <head>
     <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <title>Missing Content</title>
+    <meta name="description" content="See which TV shows and Albums are missing from your collection on Plex">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="fragment" content="!">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <script>
+        //Fix for angular hashtag routing failing
+        (function () {
+            var location = document.location;
+            var decodedHref = decodeURI( location.href );
+            if ( location.href != decodedHref )
+                location.href = decodedHref;
+        })()
+
+    </script>
+    <!-- Open Sans Font -->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet'
+          type='text/css'>
 </head>
-<body ng-app="missingContentFrontendApp">
+<body>
+<div id="fb-root"></div>
+<div id="responsive_check"></div>
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
@@ -23,11 +40,22 @@
 <navigation-header></navigation-header>
 <!-- END: HEADER -->
 
-<!-- Add your site or application content here -->
-<div class="container">
-    <div ng-view=""></div>
-</div>
+<!-- CONTENT WRAPPER -->
+<div class="content-wrapper">
+    <!-- SUBNAV -->
+    <div ng-include="'./views/partials/subnav.html'" ng-if="isAuthenticated">
+    </div>
+    <!-- END: SUBNAV -->
 
+    <!-- MAIN VIEW -->
+    <div ng-view="" autoscroll="true"></div>
+    <!-- END: MAIN VIEW -->
+</div>
+<!-- END: CONTENT WRAPPER -->
+
+<!-- FOOTER -->
+<div ng-include="'./views/partials/footer.html'"></div>
+<!-- END: FOOTER -->
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -69,21 +97,30 @@
 <script src="bower_components/angular-touch/angular-touch.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/jquery-ui/jquery-ui.js"></script>
-<script src="bower_components/angular-ui-sortable/sortable.js"></script>
-<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
 <script src="bower_components/ngstorage/ngStorage.js"></script>
 <script src="bower_components/oauth-ng/dist/oauth-ng.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="bower_components/angular-load/angular-load.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/website-environment-configuration.js"></script>
+<script src="scripts/vendor/smoothscroll/smoothscroll.js"></script>
 <script src="scripts/app.js"></script>
+<script src="scripts/directives/navigationheader.js"></script>
+<script src="scripts/filters/localizeurl.js"></script>
+<script src="scripts/factories/localizedurls.js"></script>
 <script src="scripts/factories/path.js"></script>
-<script src="scripts/directives/navigationHeader.js"></script>
+<script src="scripts/factories/httpinterceptor.js"></script>
+<script src="scripts/services/loginrequired.js"></script>
+<script src="scripts/services/sharedpreferences.js"></script>
 <script src="scripts/controllers/nav.js"></script>
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/about.js"></script>
+<script src="scripts/controllers/login.js"></script>
 <!-- endbuild -->
 </body>
 </html>

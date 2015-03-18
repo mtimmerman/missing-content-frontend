@@ -4,7 +4,7 @@
                 class="navbar-brand"
                 ng-href="/"
                 >
-            <img src="images/logo.jpg" class="retina" alt="Missing Content"/>
+            <img src="images/logo.png" class="retina" alt="Missing Content"/>
         </a>
         <button class="navbar-toggle navbar-toggle-open" type="button">
             <span class="icon-bar"></span>
@@ -20,7 +20,7 @@
                 <ul class="navbar-navigation-primary nav">
                     <li>
                         <a
-                                ng-href="/"
+                                ng-href="#!{{ '/' | LocalizeUrlFilter }}"
                                 ng-class="{'active': isPathActive('/')}"
                                 >
                             Home
@@ -28,7 +28,7 @@
                     </li>
                     <li>
                         <a
-                                ng-href="/about"
+                                ng-href="#!{{ '/about' | LocalizeUrlFilter }}"
                                 ng-class="{'active': isPathActive('/')}"
                                 >
                             About

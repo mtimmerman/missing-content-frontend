@@ -1,0 +1,71 @@
+// Colors
+$color-black: #222;
+$color-gray-x-dark: #999;
+$color-gray-dark: #dbdbdb;
+$color-gray: #e8e8e8;
+$color-gray-light: #f3f3f3;
+$color-white: #fff;
+$color-green: #72BF44;
+$color-red-alert: #D0021B;
+$color-brand-primary: #15afdb;
+$color-brand-success: #72bf44;
+$color-brand-danger: #ed1c59;
+
+$color-background: $color-white;
+$color-background-inverted: $color-gray-light;
+$color-background-inverted-dark: $color-gray;
+$color-background-inverted-x-dark: $color-gray-dark;
+
+$color-border: $color-gray;
+
+// Fonts
+$font-family-body: 'Open Sans', Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$font-color-dark: #222;
+$font-color-light: #999;
+$font-color-inverted: #fff;
+
+$font-size-xl: 31px;
+$font-size-l: 20px;
+$font-size-m: 16px;
+$font-size-s: 13px;
+$font-size-xs: 12px;
+
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Responsive
+$breakpoint-s: 500px;
+$breakpoint-l: 768px;
+$breakpoint-xl: 992px;
+
+
+$lightblue: #07a5e0;
+$darkblue: #02384c;
+$lightgreen: #72bf44;
+$darkgrey: #333333;
+$lightgrey_copy: #a3a3a3;
+$lightgrey_copy_disabled: #cecece;
+$lightgrey_bg: #eeeeee;
+$lightgrey_borders: #bababa;
+$red: #ef1457;
+$darkwhite: #f7f8f9;
+$border_darkwhite: #f5f5f5;
+$white: #ffffff;
+
+$font-family-open-sans: 'Open Sans', Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$breakpoint_l: 768px;
+$breakpoint_xl: 992px;
+
+
+@mixin hr-image($image, $width, $height) {
+  @media print,
+  (-webkit-min-device-pixel-ratio: 1.25),
+  (-o-min-device-pixel-ratio: 5/4),
+  (min-resolution: 120dpi) {
+    background-image: url($image);
+    background-size: $width $height;
+  }
+}

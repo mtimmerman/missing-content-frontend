@@ -12,22 +12,23 @@ angular
   .module 'missingContentFrontendApp', [
     'ngAnimate'
     'ngCookies'
-    'ngResource'
     'ngRoute'
     'ngSanitize'
     'ngTouch'
-    'ui.sortable'
-    'LocalStorageModule'
+    'angularLoad'
     'oauth'
     'website-environment-configuration'
+    'pascalprecht.translate'
+    'angularSmoothscroll'
+    'ui.bootstrap'
   ]
-  .config ['$routeProvider', 'localStorageServiceProvider', '$locationProvider'
-    ($routeProvider, localStorageServiceProvider, $locationProvider) ->
+  .config ['$routeProvider', '$httpProvider', '$translateProvider', '$locationProvider',
+    ($routeProvider, $httpProvider, $translateProvider, $locationProvider) ->
       supportedLanguages = ['nl', 'fr', 'en']
 
-      localStorageServiceProvider.setPrefix 'ls'
 
-      $locationProvider.html5Mode(true).hashPrefix('!')
+      $httpProvider.interceptors.push('HttpInterceptorFactory')
+      $locationProvider.html5Mode(false).hashPrefix('!')
 
       baseRoutes = [
         {
@@ -42,17 +43,58 @@ angular
         }
       ]
 
-      for route in baseRoutes
+      # Build all urls
+      routes = []
+      for locale in supportedLanguages
+        for route in baseRoutes
+          tmpRoute = {};
+          tmpRoute.route = '/' + locale + route.route
+          tmpRoute.templateUrl = route.templateUrl
+          tmpRoute.controller = route.controller
+          tmpRoute.useOldDesign = route.useOldDesign
+          routes.push tmpRoute
+
+      for route2 in baseRoutes
+        if route2.route.length > 1 then routes.push route2
+
+      # Edit in login.coffee too
+      routes.push {
+        route: '/&access_token=:accessToken'
+        templateUrl: 'views/main.html'
+        controller: 'LoginCtrl'
+      }
+
+      for route in routes
         $routeProvider.when route.route, {
           templateUrl: route.templateUrl
           controller: route.controller
+          useOldDesign: route.useOldDesign
         }
 
       $routeProvider.otherwise
-        redirectTo: '/'
+        redirectTo: '/nl'
+
+      $translateProvider.useStaticFilesLoader({
+        prefix: 'i18n/locale-',
+        suffix: '.json'
+      });
+
+      $translateProvider.preferredLanguage 'nl'
   ]
-  .run ['$rootScope', '$location', 'AccessToken', '$cookieStore', 'ENV', 'path', '$anchorScroll'
-  ($rootScope, $location, AccessToken, $cookieStore, ENV, path, $anchorScroll) ->
+  .run ['$rootScope', '$location', '$anchorScroll', 'ENV', 'AccessToken', 'PathFactory', 'angularLoad',
+        'LocalizedUrlsFactory', 'SharedPreferencesService', '$cookieStore',
+  ($rootScope, $location, $anchorScroll, ENV, AccessToken, PathFactory, angularLoad, LocalizedUrlsFactory,
+   SharedPreferencesService, $cookieStore) ->
+
+    $rootScope.$on '$routeChangeStart', (e, next, current) ->
+      # localization check
+      if !$cookieStore.get('locale')
+        SharedPreferencesService.setLocale('nl')
+        return
+      else
+        SharedPreferencesService.setLocale($cookieStore.get('locale'))
+        return
+
     # global authentication check
     AccessToken.get()
 
@@ -60,16 +102,23 @@ angular
     $rootScope.currentUser = {};
 
     # authentication checks
+
     $rootScope.isAuthenticated = AccessToken.get()?
     $rootScope.oauth_site = ENV.oauth
     $rootScope.oauth_client_id = ENV.client_id
     $rootScope.oauth_redirect = ENV.redirect
 
+    $rootScope.$on 'oauth:logout', ->
+      if $rootScope.isAuthenticated
+        $location.path '/'
+        $location.hash ''
+        $rootScope.isAuthenticated = false
+
     $rootScope.$on 'oauth:authorized', ->
       $rootScope.accessToken = AccessToken.get().access_token
       $rootScope.isAuthenticated = true
 
-    $rootScope.isPathActive = path.isActive
+    $rootScope.isPathActive = PathFactory.isActive
 
     scrollTo = () ->
       if $location.hash()

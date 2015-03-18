@@ -2,16 +2,14 @@
 
 angular
   .module 'missingContentFrontendApp'
-  .controller 'NavCtrl', ['$scope', '$location', '$anchorScroll'
-  ($scope, $location, $anchorScroll) ->
+  .controller 'NavCtrl', ['$scope', '$location', '$anchorScroll', 'SharedPreferencesService'
+  ($scope, $location, $anchorScroll, SharedPreferencesService) ->
     $scope.navigateTo = (location) ->
-      if $location.path == '/'
+      if $location.path() == '/' + SharedPreferencesService.getLocale() + '/'
         if $location.hash()
           $location.hash('')
       else
-        $location.path('/')
-
+        $location.path('/' + SharedPreferencesService.getLocale() + '/')
       $location.hash(location)
-
       $anchorScroll()
   ]
