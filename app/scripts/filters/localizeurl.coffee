@@ -1,10 +1,10 @@
 angular.module('missingContentFrontendApp')
-.filter 'LocalizeUrlFilter', [ 'SharedPreferencesService', (SharedPreferencesService) ->
+.filter 'localizeUrl', [ 'SharedPreferences', (SharedPreferences) ->
   (input) ->
     if !input
-      return '/' + SharedPreferencesService.getLocale()
+      return '/' + SharedPreferences.getLocale()
     else
-      return '/' + SharedPreferencesService.getLocale() + input
+      return '/' + SharedPreferences.getLocale() + input
 
 
 ]

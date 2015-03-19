@@ -2,8 +2,8 @@
 
 angular
   .module 'missingContentFrontendApp'
-  .directive 'navigationHeader', ['$location', '$anchorScroll',
-  ($location, $anchorScroll) ->
+  .directive 'navigationHeader', ['$location', '$anchorScroll', 'SharedPreferences',
+  ($location, $anchorScroll, SharedPreferences) ->
     templateUrl: 'views/directives/navigation-header.html'
     restrict: 'E'
     controller: 'NavCtrl'

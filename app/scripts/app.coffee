@@ -27,7 +27,7 @@ angular
       supportedLanguages = ['nl', 'fr', 'en']
 
 
-      $httpProvider.interceptors.push('HttpInterceptorFactory')
+      $httpProvider.interceptors.push('httpInterceptor')
       $locationProvider.html5Mode(false).hashPrefix('!')
 
       baseRoutes = [
@@ -60,7 +60,7 @@ angular
       # Edit in login.coffee too
       routes.push {
         route: '/&access_token=:accessToken'
-        templateUrl: 'views/main.html'
+        templateUrl: 'views/loyalty.html'
         controller: 'LoginCtrl'
       }
 
@@ -81,18 +81,18 @@ angular
 
       $translateProvider.preferredLanguage 'nl'
   ]
-  .run ['$rootScope', '$location', '$anchorScroll', 'ENV', 'AccessToken', 'PathFactory', 'angularLoad',
-        'LocalizedUrlsFactory', 'SharedPreferencesService', '$cookieStore',
-  ($rootScope, $location, $anchorScroll, ENV, AccessToken, PathFactory, angularLoad, LocalizedUrlsFactory,
-   SharedPreferencesService, $cookieStore) ->
+  .run ['$rootScope', '$location', '$anchorScroll', 'ENV', 'AccessToken', 'path', 'angularLoad',
+        'localizedUrls', 'SharedPreferences', '$cookieStore',
+  ($rootScope, $location, $anchorScroll, ENV, AccessToken, path, angularLoad, localizedUrls, SharedPreferences,
+   $cookieStore) ->
 
     $rootScope.$on '$routeChangeStart', (e, next, current) ->
       # localization check
       if !$cookieStore.get('locale')
-        SharedPreferencesService.setLocale('nl')
+        SharedPreferences.setLocale('nl')
         return
       else
-        SharedPreferencesService.setLocale($cookieStore.get('locale'))
+        SharedPreferences.setLocale($cookieStore.get('locale'))
         return
 
     # global authentication check
@@ -118,7 +118,7 @@ angular
       $rootScope.accessToken = AccessToken.get().access_token
       $rootScope.isAuthenticated = true
 
-    $rootScope.isPathActive = PathFactory.isActive
+    $rootScope.isPathActive = path.isActive
 
     scrollTo = () ->
       if $location.hash()

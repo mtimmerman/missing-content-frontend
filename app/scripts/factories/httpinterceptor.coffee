@@ -1,6 +1,6 @@
 angular
   .module 'missingContentFrontendApp'
-  .factory 'HttpInterceptorFactory',
+  .factory 'httpInterceptor',
   ($q, $rootScope) ->
     request: (config) ->
 

@@ -2,7 +2,7 @@
 
 angular
   .module 'missingContentFrontendApp'
-  .service 'LoginRequiredService', ['$rootScope', '$location',
+  .service 'Loginrequiredservice', ['$rootScope', '$location',
   ($rootScope, $location) ->
     class Loginrequiredservice
       @check: ->

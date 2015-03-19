@@ -1,17 +1,17 @@
 'use strict'
 
 angular.module 'missingContentFrontendApp'
-  .factory 'PathFactory', ['$location', 'SharedPreferencesService', ($location, SharedPreferencesService) ->
+  .factory 'path', ['$location', 'SharedPreferences', ($location, SharedPreferences) ->
     isActive = (path) ->
       if $location.url() is path
         return true
-      else if $location.url() is '/' + SharedPreferencesService.getLocale() + path
+      else if $location.url() is '/' + SharedPreferences.getLocale() + path
         return true
       else
         false
 
     # Public API here
     {
-    isActive: isActive
+      isActive: isActive
     }
   ]

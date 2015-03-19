@@ -98,7 +98,6 @@
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/jquery-ui/jquery-ui.js"></script>
 <script src="bower_components/ngstorage/ngStorage.js"></script>
-<script src="bower_components/oauth-ng/dist/oauth-ng.js"></script>
 <script src="bower_components/angular-translate/angular-translate.js"></script>
 <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
 <script src="bower_components/angular-load/angular-load.js"></script>
@@ -108,19 +107,21 @@
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/website-environment-configuration.js"></script>
+<script src="scripts/vendor/oauth-ng/oauth-ng.js"></script>
 <script src="scripts/vendor/smoothscroll/smoothscroll.js"></script>
 <script src="scripts/app.js"></script>
-<script src="scripts/directives/navigationheader.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/login.js"></script>
+<script src="scripts/services/shared-preferences.js"></script>
+<script src="scripts/factories/path.js"></script>
+<script src="scripts/services/loginrequiredservice.js"></script>
 <script src="scripts/filters/localizeurl.js"></script>
 <script src="scripts/factories/localizedurls.js"></script>
-<script src="scripts/factories/path.js"></script>
 <script src="scripts/factories/httpinterceptor.js"></script>
-<script src="scripts/services/loginrequired.js"></script>
-<script src="scripts/services/sharedpreferences.js"></script>
+<script src="scripts/directives/navigationheader.js"></script>
 <script src="scripts/controllers/nav.js"></script>
-<script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/about.js"></script>
-<script src="scripts/controllers/login.js"></script>
+<script src="scripts/models/Api.js"></script>
 <!-- endbuild -->
 </body>
 </html>

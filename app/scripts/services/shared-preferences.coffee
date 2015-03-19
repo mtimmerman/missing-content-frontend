@@ -2,7 +2,7 @@
 
 angular
   .module 'missingContentFrontendApp'
-  .service 'SharedPreferencesService', ['$cookieStore', '$translate',
+  .service 'SharedPreferences', ['$cookieStore', '$translate',
   ($cookieStore, $translate) ->
     if $cookieStore.get 'locale'?
       $translate.use $cookieStore.get 'locale'
